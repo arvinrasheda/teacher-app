@@ -39,3 +39,7 @@ Route::prefix("nilai-guru")->group(function () {
     Route::get('/edit/{nip}', 'NilaiGuruController@edit')->name('nilai_guru.edit');
     Route::post('/store/{nip}', 'NilaiGuruController@store')->name('nilai_guru.store');
 });
+
+Route::prefix("hasil")->group(function () {
+    Route::get('', 'HasilController@index')->name('hasil.index');
+});

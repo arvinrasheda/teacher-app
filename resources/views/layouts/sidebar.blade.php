@@ -20,7 +20,7 @@
             </li>
             <li class="{{ (request()->is('/guru')) ? 'active' : '' }}"><a href="{{ route('guru.index') }}"><i class="fa fa-folder"></i> <span>Data Guru</span></a></li>
             <li class="{{ (request()->is('/nilai-guru')) ? 'active' : '' }}"><a href="{{ route('nilai_guru.index') }}"><i class="fa fa-files-o"></i> <span>Input Penilaian Guru</span></a></li>
-            <li class="{{ (request()->is('/kriteria')) ? 'active' : '' }}"><a href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> <span>Hasil Metode SAW</span></a></li>
+            <li class="{{ (request()->is('/hasil')) ? 'active' : '' }}"><a href="{{ route('hasil.index') }}"><i class="fa fa-pie-chart"></i> <span>Hasil Metode SAW</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

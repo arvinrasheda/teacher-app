@@ -46,7 +46,7 @@
                             <td>{{ $item->nip_guru }}</td>
                             <td>{{ $item->nama_guru }}</td>
                             @foreach($listKriteria as $kriteria)
-                                <td>{{ GuruServices::getItemNilai($item->nip_guru, $kriteria->kode_kriteria) }}</td>
+                                <td>{{ GuruServices::getItemKeterangan($item->nip_guru, $kriteria->kode_kriteria) }}</td>
                             @endforeach
                             <td>
                                 <a href="{{ route('nilai_guru.edit', ['nip' => $item->nip_guru]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>

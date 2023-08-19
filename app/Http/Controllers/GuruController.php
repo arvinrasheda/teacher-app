@@ -54,6 +54,6 @@ class GuruController extends Controller
             return redirect()->withInput()->with("errormessage", $exception->getMessage());
         }
 
-        return redirect()->to('master/kriteria');
+        return redirect()->to('guru');
     }
 }

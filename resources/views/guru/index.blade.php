@@ -73,7 +73,15 @@
             $('#example1').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                    'print'
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).find('table').find('tr').each(function() {
+                                $(this).find('td:last-child, th:last-child').remove();
+                            });
+                        }
+                    }
+
                 ]
             })
         })
