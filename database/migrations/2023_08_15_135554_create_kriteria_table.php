@@ -14,10 +14,11 @@ class CreateKriteriaTable extends Migration
     public function up()
     {
         Schema::create('kriteria', function (Blueprint $table) {
-            $table->string('kode_kriteria', 16)->primary();
+            $table->bigIncrements('id');
+            $table->string('kode_kriteria', 16);
             $table->string('nama_kriteria', 256);
-            $table->string('atribut', 16);
-            $table->double('Bobot');
+            $table->string('attribute', 16);
+            $table->double('bobot');
             // Tambahkan kolom lain yang diperlukan
             $table->timestamps();
         });

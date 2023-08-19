@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use Illuminate\Support\Facades\Session; @endphp
+    <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,7 +21,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{url('public/plugins/iCheck/flat/blue.css')}}">
     <!-- Morris chart -->
-{{--    <link rel="stylesheet" href="{{url('public/plugins/morris/morris.css')}}">--}}
+    {{--    <link rel="stylesheet" href="{{url('public/plugins/morris/morris.css')}}">--}}
     <!-- jvectormap -->
     <link rel="stylesheet" href="{{url('public/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
     <!-- Date Picker -->
@@ -29,6 +30,8 @@
     <link rel="stylesheet" href="{{url('public/plugins/daterangepicker/daterangepicker-bs3.css')}}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{url('public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -96,8 +99,53 @@
 <script src="{{url('public/plugins/fastclick/fastclick.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{url('public/js/app.min.js')}}"></script>
+
+<script src="{{ asset('public/plugins/toastr/build/toastr.min.js') }}"></script>
+<script>
+    @if(Session::get("errormessage"))
+        toastr.options = {
+        closeButton: true,
+        timeOut: 0,
+        extendedTimeOut: 0,
+    };
+
+    @php $text = str_replace("\n", '', Session::get("errormessage")); @endphp
+    toastr.error("{{$text}}", "Error", {});
+
+    @elseif(Session::get("successmessage"))
+
+    toastr.success("{{Session::get("successmessage")}}", "Berhasil", {});
+
+    @elseif(Session::get("errorwithlink"))
+
+    @php $text = str_replace("\n", '', Session::get("errorwithlink")); @endphp
+    toastr.error("{!! $text !!}", "Error", {
+        closeButton: true,
+        timeOut: 0,
+        extendedTimeOut: 0,
+    });
+
+    @elseif(Session::get("warningmessagewithlink"))
+
+    @php $text = str_replace("\n", '', Session::get("warningmessagewithlink")); @endphp
+    toastr.warning("{!! $text !!}", "Warning", {
+        closeButton: true,
+        timeOut: 0,
+        extendedTimeOut: 0,
+    });
+
+    @elseif(Session::get("warningmessage"))
+    @php $text = str_replace("\n", '', Session::get("warningmessage")); @endphp
+    toastr.warning("{{$text}}", "Warning", {closeButton: true, timeOut: 0, extendedTimeOut: 0,});
+
+    @elseif(Session::get("popupmessage"))
+    Swal.fire("", "{{Session::get("popupmessage")}}", "warning");
+    @endif
+</script>
 @section('js')
 
 @show
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 </body>
 </html>

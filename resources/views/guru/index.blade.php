@@ -6,11 +6,11 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Master Kriteria
+            Data Guru
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">List Kriteria</li>
+            <li class="active">List Guru</li>
         </ol>
     </section>
 
@@ -19,10 +19,10 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Kriteria</h3>
+                <h3 class="box-title">Guru</h3>
 
                 <div class="box-tools pull-right">
-                    <a href="{{ route('kriteria.create') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah</a>
+                    <a href="{{ route('guru.create') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah</a>
                 </div>
             </div>
 
@@ -31,10 +31,9 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode Kriteria</th>
-                        <th>Nama Kriteria</th>
-                        <th>Atribute</th>
-                        <th>Bobot</th>
+                        <th>Kode Guru</th>
+                        <th>Nama Guru</th>
+                        <th>Keterangan</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -45,10 +44,9 @@
                     @foreach($list as $item)
                         <tr>
                             <td>{{ $no }}</td>
-                            <td>{{ $item->kode_kriteria }}</td>
-                            <td>{{ $item->nama_kriteria }}</td>
-                            <td>{{ $item->attribute }}</td>
-                            <td>{{ $item->bobot }}</td>
+                            <td>{{ $item->nip }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->keterangan }}</td>
                             <td>
                                 <a class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
                                 <a class="btn btn-outline-warning"><i class="fa fa-trash"></i></a>
@@ -72,7 +70,12 @@
     <script src="{{url('public/plugins/datatables/dataTables.bootstrap.js')}}"></script>
     <script>
         $(function () {
-            $('#example1').DataTable()
+            $('#example1').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            })
         })
     </script>
 @endsection

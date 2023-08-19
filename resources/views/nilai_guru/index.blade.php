@@ -1,3 +1,4 @@
+@php use App\Services\GuruServices; @endphp
 @extends('layouts.app')
 
 @section('css')
@@ -6,11 +7,11 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Master Kriteria
+            Penilaian Guru
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">List Kriteria</li>
+            <li class="active">Penilaian Guru</li>
         </ol>
     </section>
 
@@ -19,11 +20,7 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Kriteria</h3>
-
-                <div class="box-tools pull-right">
-                    <a href="{{ route('kriteria.create') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah</a>
-                </div>
+                <h3 class="box-title">Penilaian Guru</h3>
             </div>
 
             <div class="box-body">
@@ -31,10 +28,11 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode Kriteria</th>
-                        <th>Nama Kriteria</th>
-                        <th>Atribute</th>
-                        <th>Bobot</th>
+                        <th>NIP</th>
+                        <th>Nama Guru</th>
+                        @foreach($listKriteria as $item)
+                            <th>{{$item->nama_kriteria}}</th>
+                        @endforeach
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -45,13 +43,13 @@
                     @foreach($list as $item)
                         <tr>
                             <td>{{ $no }}</td>
-                            <td>{{ $item->kode_kriteria }}</td>
-                            <td>{{ $item->nama_kriteria }}</td>
-                            <td>{{ $item->attribute }}</td>
-                            <td>{{ $item->bobot }}</td>
+                            <td>{{ $item->nip_guru }}</td>
+                            <td>{{ $item->nama_guru }}</td>
+                            @foreach($listKriteria as $kriteria)
+                                <td>{{ GuruServices::getItemNilai($item->nip_guru, $kriteria->kode_kriteria) }}</td>
+                            @endforeach
                             <td>
-                                <a class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
-                                <a class="btn btn-outline-warning"><i class="fa fa-trash"></i></a>
+                                <a href="{{ route('nilai_guru.edit', ['nip' => $item->nip_guru]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
                             </td>
                         </tr>
                         @php
@@ -60,6 +58,7 @@
                     @endforeach
                     </tbody>
                 </table>
+
             </div>
 
         </div>
@@ -72,7 +71,12 @@
     <script src="{{url('public/plugins/datatables/dataTables.bootstrap.js')}}"></script>
     <script>
         $(function () {
-            $('#example1').DataTable()
+            $('#example1').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            })
         })
     </script>
 @endsection

@@ -17,7 +17,7 @@ class CreateNilaiGuruTable extends Migration
             $table->bigIncrements('id');
             $table->string('nip_guru', 16);
             $table->string('kode_kriteria', 16);
-            $table->unsignedBigInteger('id_nilai_kriteria');
+            $table->unsignedBigInteger('id_nilai_kriteria')->nullable();
             // Tambahkan kolom lain yang diperlukan
             $table->timestamps();
         });
