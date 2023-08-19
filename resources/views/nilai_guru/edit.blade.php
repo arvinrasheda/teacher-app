@@ -30,7 +30,7 @@
                             <label>{{ $kriteria['nama_kriteria']  }}</label>
                             <select class="form-control" name="{{ $kriteria['kode_kriteria']  }}">
                                 @foreach($kriteria['items'] as $item)
-                                    <option value="{{ $item['id'] }}">{{ $item['keterangan'] }}</option>
+                                    <option value="{{ $item['id'] }}" @if($item['selected']) selected @endif>{{ $item['keterangan'] }}</option>
                                 @endforeach
                             </select>
                         </div>

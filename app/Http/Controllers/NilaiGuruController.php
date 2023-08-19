@@ -36,9 +36,17 @@ class NilaiGuruController extends Controller
         $listKriteria = Kriteria::select('*')->orderBy('kode_kriteria')->get()->toArray();
         $guru = Guru::where('nip', $nip)->first();
         $result = [];
+
         foreach ($listKriteria as $kriteria) {
-            $item = NilaiKriteria::where('kode_kriteria', $kriteria['kode_kriteria'])->get()->toArray();
-            $kriteria['items'] = $item;
+            $nilaiGuru = NilaiGuru::where('nip_guru', $nip)->where('kode_kriteria', $kriteria['kode_kriteria'])->first();
+            $items = NilaiKriteria::where('kode_kriteria', $kriteria['kode_kriteria'])->get()->toArray();
+            $resItems = [];
+            foreach ($items as $item) {
+                $item['selected'] = $nilaiGuru->id_nilai_kriteria == $item['id'];
+                $resItems[] = $item;
+            }
+
+            $kriteria['items'] = $resItems;
             $result[] = $kriteria;
         }
 

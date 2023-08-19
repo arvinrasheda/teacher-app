@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Guru;
 use App\Kriteria;
 use App\NilaiGuru;
-use App\NilaiKriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
