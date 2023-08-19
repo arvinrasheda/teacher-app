@@ -1,6 +1,6 @@
 INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (2, 'C02', 'Kompetensi Kepribadian', 'BENEFIT', '15', '2023-08-19 01:52:56', '2023-08-19 01:52:56');
-INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (1, 'C01', 'Kompetensi Pedagogik', 'BENEFIT', '3', '2023-08-17 04:21:38', '2023-08-17 04:21:38');
-INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (3, 'C03', 'Kompetensi Sosial', 'BENEFIT', '1', '2023-08-19 01:53:31', '2023-08-19 01:53:31');
+INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (1, 'C01', 'Kompetensi Pedagogik', 'BENEFIT', '30', '2023-08-17 04:21:38', '2023-08-17 04:21:38');
+INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (3, 'C03', 'Kompetensi Sosial', 'BENEFIT', '10', '2023-08-19 01:53:31', '2023-08-19 01:53:31');
 INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (4, 'C04', 'Kompetensi Profesional', 'BENEFIT', '25', '2023-08-19 01:53:46', '2023-08-19 01:53:46');
 INSERT INTO "public"."kriteria" ("id", "kode_kriteria", "nama_kriteria", "attribute", "bobot", "created_at", "updated_at") VALUES (5, 'C05', 'Kompetensi Kedisiplinan', 'BENEFIT', '20', '2023-08-19 01:54:04', '2023-08-19 01:54:04');
 
