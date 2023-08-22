@@ -20,13 +20,13 @@
 
         <div class="row">
             <div class="col-lg-3 col-xs-6">
-                <div class="small-box bg-blue">
+                <div class="small-box" style="background-color: #613813">
                     <div class="inner">
-                        <h3>{{ $countGuru }}</h3>
-                        <p>Dara Guru</p>
+                        <h3 style="color: white">{{ $countGuru }}</h3>
+                        <p style="color: white">Data Guru</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i style="color: white" class="ion ion-person-add"></i>
                     </div>
                     <a href="{{ route('guru.index') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
