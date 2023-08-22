@@ -52,7 +52,7 @@
 
     @show
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-yellow sidebar-mini">
 <div class="wrapper">
 
     @include('layouts.header')
