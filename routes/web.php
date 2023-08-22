@@ -23,11 +23,17 @@ Route::prefix("master")->group(function () {
         Route::get('', 'KriteriaController@index')->name('kriteria.index');
         Route::get('/create', 'KriteriaController@create')->name('kriteria.create');
         Route::post('/store', 'KriteriaController@store')->name('kriteria.store');
+        Route::get('/edit/{id}', 'KriteriaController@edit')->name('kriteria.edit');
+        Route::post('/update', 'KriteriaController@update')->name('kriteria.update');
+        Route::delete('/destroy/{id}', 'KriteriaController@destroy')->name('kriteria.destroy');
     });
     Route::prefix("nilai-kriteria")->group(function () {
         Route::get('', 'NilaiKriteriaController@index')->name('nilai_kriteria.index');
         Route::get('/create', 'NilaiKriteriaController@create')->name('nilai_kriteria.create');
         Route::post('/store', 'NilaiKriteriaController@store')->name('nilai_kriteria.store');
+        Route::get('/edit/{id}', 'NilaiKriteriaController@edit')->name('nilai_kriteria.edit');
+        Route::post('/update', 'NilaiKriteriaController@update')->name('nilai_kriteria.update');
+        Route::delete('/destroy/{id}', 'NilaiKriteriaController@destroy')->name('nilai_kriteria.destroy');
     });
 });
 

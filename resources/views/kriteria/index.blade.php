@@ -50,8 +50,12 @@
                             <td>{{ $item->attribute }}</td>
                             <td>{{ $item->bobot }}</td>
                             <td>
-                                <a class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
-                                <a class="btn btn-outline-warning"><i class="fa fa-trash"></i></a>
+                                <a href="{{ route('kriteria.edit', ['id' => $item->id]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
+                                <form action="{{ route('kriteria.destroy', ['id' => $item->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-warning" onclick="return confirmDelete()"><i class="fa fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @php
@@ -74,5 +78,9 @@
         $(function () {
             $('#example1').DataTable()
         })
+
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this item?');
+        }
     </script>
 @endsection

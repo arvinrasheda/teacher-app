@@ -32,4 +32,40 @@ class NilaiKriteriaController extends Controller
 
         return redirect()->to('master/nilai-kriteria');
     }
+
+    public function edit($id, Request $request) {
+        $data = NilaiKriteria::find($id);
+        $kriteria = Kriteria::select('*')->orderBy('kode_kriteria')->get();
+        return view('nilai_kriteria.edit', compact('data', 'kriteria'));
+    }
+
+    public function update(Request $request)
+    {
+        $input = $request->except('_token');
+
+        $model = NilaiKriteria::find($input['id']);
+        $model->kode_kriteria = $input['kode_kriteria'];
+        $model->keterangan = $input['keterangan'];
+        $model->nilai = $input['nilai'];
+        $model->save();
+
+        return redirect()->to('master/nilai-kriteria')->with("successmessage", "Data berhasil disimpan!");
+    }
+
+    public function destroy($id)
+    {
+        try {
+            // Find the kriteria by ID
+            $kriteria = NilaiKriteria::findOrFail($id);
+
+            // Delete the kriteria
+            $kriteria->delete();
+
+            // Redirect back with a success message
+            return redirect()->route('nilai_kriteria.index')->with('successmessage', 'Nilai Kriteria deleted successfully');
+        } catch (\Exception $e) {
+            // Handle any errors that occur during deletion
+            return redirect()->route('nilai_kriteria.index')->with('errormessage', 'Failed to delete Nilai kriteria');
+        }
+    }
 }
