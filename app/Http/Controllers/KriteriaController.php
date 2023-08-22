@@ -27,7 +27,7 @@ class KriteriaController extends Controller
         $model->bobot = $input['bobot'];
         $model->save();
 
-        return redirect()->to('master/kriteria')->with("successmessage", "Data berhasil disimpan!");
+        return redirect()->route('kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
     }
 
     public function edit($id, Request $request) {
@@ -46,7 +46,7 @@ class KriteriaController extends Controller
         $model->bobot = $input['bobot'];
         $model->save();
 
-        return redirect()->to('master/kriteria')->with("successmessage", "Data berhasil disimpan!");
+        return redirect()->route('kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
     }
 
     public function destroy($id)

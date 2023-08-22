@@ -30,7 +30,7 @@ class NilaiKriteriaController extends Controller
         $model->nilai = $input['nilai'];
         $model->save();
 
-        return redirect()->to('master/nilai-kriteria');
+        return redirect()->route('nilai_kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
     }
 
     public function edit($id, Request $request) {
@@ -62,10 +62,10 @@ class NilaiKriteriaController extends Controller
             $kriteria->delete();
 
             // Redirect back with a success message
-            return redirect()->route('nilai_kriteria.index')->with('successmessage', 'Nilai Kriteria deleted successfully');
+            return redirect()->route('nilai_kriteria.index')->with('successmessage', 'Data berhasil dihapus!');
         } catch (\Exception $e) {
             // Handle any errors that occur during deletion
-            return redirect()->route('nilai_kriteria.index')->with('errormessage', 'Failed to delete Nilai kriteria');
+            return redirect()->route('nilai_kriteria.index')->with('errormessage', 'Data gagal dihapus!');
         }
     }
 }

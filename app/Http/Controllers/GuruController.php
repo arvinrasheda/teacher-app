@@ -54,6 +54,6 @@ class GuruController extends Controller
             return redirect()->withInput()->with("errormessage", $exception->getMessage());
         }
 
-        return redirect()->to('guru');
+        return redirect()->route('guru.index')->with('successmessage', 'Data berhasil disimpan!');
     }
 }

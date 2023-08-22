@@ -64,6 +64,6 @@ class NilaiGuruController extends Controller
             $nilaiGuru->save();
         }
 
-        return redirect()->to('nilai-guru')->with("successmessage", "Data berhasil disimpan!");
+        return redirect()->route('nilai_guru.index')->with('successmessage', 'Data berhasil disimpan!');
     }
 }
