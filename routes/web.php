@@ -11,8 +11,11 @@
 |
 */
 
+use App\Guru;
+
 Route::get('/', function () {
-    return view('dashboard');
+    $countGuru = count(Guru::all());
+    return view('dashboard', compact('countGuru'));
 })->name('dashboard');
 
 Route::prefix("master")->group(function () {
