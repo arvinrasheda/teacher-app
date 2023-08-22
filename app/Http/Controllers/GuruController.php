@@ -56,4 +56,39 @@ class GuruController extends Controller
 
         return redirect()->route('guru.index')->with('successmessage', 'Data berhasil disimpan!');
     }
+
+    public function edit($id, Request $request) {
+        $data = Guru::find($id);
+        return view('guru.edit', compact('data'));
+    }
+
+    public function update(Request $request)
+    {
+        $input = $request->except('_token');
+
+        $model = Guru::find($input['id']);
+        $model->nip = $input['nip'];
+        $model->nama = $input['nama'];
+        $model->keterangan = $input['keterangan'];
+        $model->save();
+
+        return redirect()->route('guru.index')->with('successmessage', 'Data berhasil disimpan!');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            // Find the kriteria by ID
+            $kriteria = Guru::findOrFail($id);
+
+            // Delete the kriteria
+            $kriteria->delete();
+
+            // Redirect back with a success message
+            return redirect()->route('guru.index')->with('successmessage', 'Kriteria deleted successfully');
+        } catch (\Exception $e) {
+            // Handle any errors that occur during deletion
+            return redirect()->route('guru.index')->with('errormessage', 'Failed to delete kriteria');
+        }
+    }
 }

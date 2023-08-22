@@ -17,8 +17,8 @@ class HasilController extends Controller
                 nilai_guru.nip_guru,
                 guru.nama AS nama_guru
             FROM
-                "nilai_guru"
-                LEFT JOIN guru ON guru.nip = nilai_guru.nip_guru
+                "guru"
+                LEFT JOIN nilai_guru ON guru.nip = nilai_guru.nip_guru
             GROUP BY
                 guru.nama,
                 nilai_guru.nip_guru,

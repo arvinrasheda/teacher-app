@@ -41,6 +41,9 @@ Route::prefix("guru")->group(function () {
     Route::get('', 'GuruController@index')->name('guru.index');
     Route::get('/create', 'GuruController@create')->name('guru.create');
     Route::post('/store', 'GuruController@store')->name('guru.store');
+    Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
+    Route::post('/update', 'GuruController@update')->name('guru.update');
+    Route::delete('/destroy/{id}', 'GuruController@destroy')->name('guru.destroy');
 });
 
 Route::prefix("nilai-guru")->group(function () {

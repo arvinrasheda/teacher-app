@@ -31,7 +31,7 @@
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode Guru</th>
+                        <th>NIP Guru</th>
                         <th>Nama Guru</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
@@ -48,8 +48,12 @@
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->keterangan }}</td>
                             <td>
-                                <a class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
-                                <a class="btn btn-outline-warning"><i class="fa fa-trash"></i></a>
+                                <a href="{{ route('guru.edit', ['id' => $item->id]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
+                                <form action="{{ route('guru.destroy', ['id' => $item->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-warning" onclick="return confirmDelete()"><i class="fa fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                         @php
@@ -85,5 +89,9 @@
                 ]
             })
         })
+
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this item?');
+        }
     </script>
 @endsection
