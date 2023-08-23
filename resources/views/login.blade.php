@@ -28,8 +28,9 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Té</b>App</a>
+        <img src="{{ url('public/img/logo_cls-removebg.png') }}" style="width: 200px; height: auto;">
     </div>
+
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
