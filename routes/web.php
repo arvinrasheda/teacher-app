@@ -13,12 +13,13 @@
 
 use App\Guru;
 
-Route::get('/', function () {
-    $countGuru = count(Guru::all());
-    return view('dashboard', compact('countGuru'));
-})->name('dashboard');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::prefix("master")->group(function () {
+Route::middleware(['check.session.auth'])->get('/', 'HomeController@index')->name('dashboard');
+
+Route::prefix("master")->middleware(['check.session.auth'])->group(function () {
     Route::prefix("kriteria")->group(function () {
         Route::get('', 'KriteriaController@index')->name('kriteria.index');
         Route::get('/create', 'KriteriaController@create')->name('kriteria.create');
@@ -37,7 +38,7 @@ Route::prefix("master")->group(function () {
     });
 });
 
-Route::prefix("guru")->group(function () {
+Route::middleware(['check.session.auth'])->prefix("guru")->group(function () {
     Route::get('', 'GuruController@index')->name('guru.index');
     Route::get('/create', 'GuruController@create')->name('guru.create');
     Route::post('/store', 'GuruController@store')->name('guru.store');
@@ -46,12 +47,12 @@ Route::prefix("guru")->group(function () {
     Route::delete('/destroy/{id}', 'GuruController@destroy')->name('guru.destroy');
 });
 
-Route::prefix("nilai-guru")->group(function () {
+Route::middleware(['check.session.auth'])->prefix("nilai-guru")->group(function () {
     Route::get('', 'NilaiGuruController@index')->name('nilai_guru.index');
     Route::get('/edit/{nip}', 'NilaiGuruController@edit')->name('nilai_guru.edit');
     Route::post('/store/{nip}', 'NilaiGuruController@store')->name('nilai_guru.store');
 });
 
-Route::prefix("hasil")->group(function () {
+Route::middleware(['check.session.auth'])->prefix("hasil")->group(function () {
     Route::get('', 'HasilController@index')->name('hasil.index');
 });

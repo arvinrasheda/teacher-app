@@ -17,7 +17,12 @@
             <ul class="nav navbar-nav">
                 <!-- Control Sidebar Toggle Button -->
                 <li>
-                    <a href="#" data-toggle="control-sidebar">Sign out</a>
+                    <a href="{{ route('logout') }}" data-toggle="control-sidebar" onclick="event.preventDefault(); confirmLogout();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </div>

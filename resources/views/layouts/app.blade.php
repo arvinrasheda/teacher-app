@@ -104,6 +104,13 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+
+    function confirmLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            document.getElementById('logout-form').submit();
+        }
+    }
+
     @if(Session::get("errormessage"))
         toastr.options = {
             closeButton: true,
