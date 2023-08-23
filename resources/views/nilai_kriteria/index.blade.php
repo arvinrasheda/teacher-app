@@ -63,7 +63,6 @@
                     </tbody>
                 </table>
             </div>
-            <button onclick="confirmDelete()"></button>
         </div>
 
     </section>
@@ -78,8 +77,7 @@
         })
 
         function confirmDelete() {
-            toastr.success()
-            // return confirm('Are you sure you want to delete this item?');
+            return confirm('Are you sure you want to delete this item?');
         }
     </script>
 @endsection

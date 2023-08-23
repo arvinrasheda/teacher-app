@@ -78,17 +78,17 @@ class GuruController extends Controller
     public function destroy($id)
     {
         try {
-            // Find the kriteria by ID
-            $kriteria = Guru::findOrFail($id);
+            $guru = Guru::findOrFail($id);
 
-            // Delete the kriteria
-            $kriteria->delete();
+            NilaiGuru::where('nip_guru', $guru->nip)->delete();
+
+            $guru->delete();
 
             // Redirect back with a success message
-            return redirect()->route('guru.index')->with('successmessage', 'Kriteria deleted successfully');
+            return redirect()->route('guru.index')->with('successmessage', 'Guru deleted successfully');
         } catch (\Exception $e) {
             // Handle any errors that occur during deletion
-            return redirect()->route('guru.index')->with('errormessage', 'Failed to delete kriteria');
+            return redirect()->route('guru.index')->with('errormessage', 'Failed to delete guru');
         }
     }
 }

@@ -31,5 +31,6 @@ INSERT INTO nilai_kriteria ("kode_kriteria", "keterangan", "nilai", "created_at"
 INSERT INTO nilai_kriteria ("kode_kriteria", "keterangan", "nilai", "created_at", "updated_at") VALUES ('C05', 'Kurang Baik', '25', '2023-08-19 02:25:10', '2023-08-19 02:25:10');
 
 INSERT INTO users ("id", "username", "pass", "created_at", "updated_at") VALUES (1, 'kepala_tim', '123', NULL, NULL);
+INSERT INTO users ("id", "username", "pass", "created_at", "updated_at") VALUES (2, 'kepala_sekolah', '123', NULL, NULL);
 
 
