@@ -23,6 +23,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -64,7 +65,17 @@
 <script src="{{url('public/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{url('public/plugins/iCheck/icheck.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+    @if(Session::get("errormessage"))
+        toastr.options = {
+        closeButton: true,
+        timeOut: 0,
+        extendedTimeOut: 0,
+    };
+    @php $text = str_replace("\n", '', Session::get("errormessage")); @endphp
+    toastr.error("{{$text}}", "Error", {});
+    @endif
     $(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',

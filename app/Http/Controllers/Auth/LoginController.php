@@ -26,7 +26,7 @@ class LoginController extends Controller
             return redirect()->intended('/');
         } else {
             // Authentication failed
-            return back()->withErrors(['email' => 'Invalid credentials']);
+            return redirect()->route('login')->with('errormessage', 'Credential login tidak sesuai');
         }
     }
 
