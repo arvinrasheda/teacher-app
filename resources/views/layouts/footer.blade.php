@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 1.0.0
+        {{ ucfirst(str_replace('_', ' ', session('user')->username)) }}
     </div>
     <strong>Copyright &copy; 2023 <a href="#">Teacher Appraisal</a>.</strong> All rights reserved.
 </footer>
