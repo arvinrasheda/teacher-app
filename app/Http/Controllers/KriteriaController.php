@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Kriteria;
+use App\NilaiGuru;
+use App\NilaiKriteria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 class KriteriaController extends Controller
 {
     public function index()
@@ -20,14 +24,37 @@ class KriteriaController extends Controller
     {
         $input = $request->except('_token');
 
-        $model = new Kriteria();
-        $model->kode_kriteria = $input['kode_kriteria'];
-        $model->nama_kriteria = $input['nama_kriteria'];
-        $model->attribute = $input['attribute'];
-        $model->bobot = $input['bobot'];
-        $model->save();
+        try {
+            $getTotal = DB::select("
+                SELECT SUM(bobot) as total_nilai
+                FROM public.kriteria
+            ");
 
-        return redirect()->route('kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
+            $sumTotal = $getTotal->total_nilai + $input['bobot'];
+
+            if ($sumTotal > 100) {
+                throw new \Exception('Total Bobot Tidak Boleh Lebih Dari 100');
+            }
+
+            $model = new Kriteria();
+            $model->kode_kriteria = $input['kode_kriteria'];
+            $model->nama_kriteria = $input['nama_kriteria'];
+            $model->attribute = $input['attribute'];
+            $model->bobot = $input['bobot'];
+            $model->save();
+
+            foreach (['Sangat Baik', 'Baik', 'Cukup Baik', 'Kurang Baik'] as $keterangan) {
+                $model = new NilaiKriteria();
+                $model->kode_kriteria = $input['kode_kriteria'];
+                $model->keterangan = $keterangan;
+                $model->nilai = 0;
+                $model->save();
+            }
+
+            return redirect()->route('kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
+        } catch (\Exception $e) {
+            return redirect()->route('kriteria.index')->with('errormessage', $e->getMessage());
+        }
     }
 
     public function edit($id, Request $request) {
@@ -38,15 +65,34 @@ class KriteriaController extends Controller
     public function update(Request $request)
     {
         $input = $request->except('_token');
+        try {
+            $id = $input['id'];
 
-        $model = Kriteria::find($input['id']);
-        $model->kode_kriteria = $input['kode_kriteria'];
-        $model->nama_kriteria = $input['nama_kriteria'];
-        $model->attribute = $input['attribute'];
-        $model->bobot = $input['bobot'];
-        $model->save();
+            $getTotal = DB::select("
+                SELECT SUM(bobot) as total_nilai
+                FROM public.kriteria
+                WHERE id <> $id;
+            ");
 
-        return redirect()->route('kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
+            $sumTotal = $getTotal[0]->total_nilai + $input['bobot'];
+
+            if ($sumTotal > 100) {
+                throw new \Exception('Total Bobot Tidak Boleh Lebih Dari 100');
+            }
+
+
+            $model = Kriteria::find($input['id']);
+            $model->kode_kriteria = $input['kode_kriteria'];
+            $model->nama_kriteria = $input['nama_kriteria'];
+            $model->attribute = $input['attribute'];
+            $model->bobot = $input['bobot'];
+            $model->save();
+
+            return redirect()->route('kriteria.index')->with('successmessage', 'Data berhasil disimpan!');
+        } catch (\Exception $e) {
+            // Handle any errors that occur during deletion
+            return redirect()->route('kriteria.index')->with('errormessage', $e->getMessage());
+        }
     }
 
     public function destroy($id)
@@ -55,6 +101,16 @@ class KriteriaController extends Controller
             // Find the kriteria by ID
             $kriteria = Kriteria::findOrFail($id);
 
+            $nilaiKriteria = NilaiKriteria::where('kode_kriteria', $kriteria->kode_kriteria)->get();
+
+            $nilaiGuru = NilaiGuru::where('kode_kriteria', $kriteria->kode_kriteria)->get()->toArray();
+
+            if (count($nilaiGuru) > 0) {
+                throw new \Exception("Tidak Bisa hapus kriteria karena sudah digunakan untuk menilai");
+            }
+
+            $nilaiKriteria->delete();
+
             // Delete the kriteria
             $kriteria->delete();
 
@@ -62,7 +118,7 @@ class KriteriaController extends Controller
             return redirect()->route('kriteria.index')->with('successmessage', 'Kriteria deleted successfully');
         } catch (\Exception $e) {
             // Handle any errors that occur during deletion
-            return redirect()->route('kriteria.index')->with('errormessage', 'Failed to delete kriteria');
+            return redirect()->route('kriteria.index')->with('errormessage', $e->getMessage());
         }
     }
 }

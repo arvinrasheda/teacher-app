@@ -22,7 +22,7 @@
                 <h3 class="box-title">Nilai Kriteria</h3>
 
                 <div class="box-tools pull-right">
-                    <a href="{{ route('nilai_kriteria.create') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah</a>
+{{--                    <a href="{{ route('nilai_kriteria.create') }}" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah</a>--}}
                 </div>
             </div>
 
@@ -49,11 +49,11 @@
                             <td>{{ $item->nilai }}</td>
                             <td>
                                 <a href="{{ route('nilai_kriteria.edit', ['id' => $item->id]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
-                                <form action="{{ route('nilai_kriteria.destroy', ['id' => $item->id]) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-warning" onclick="return confirmDelete()"><i class="fa fa-trash"></i></button>
-                                </form>
+{{--                                <form action="{{ route('nilai_kriteria.destroy', ['id' => $item->id]) }}" method="POST" style="display: inline;">--}}
+{{--                                    @csrf--}}
+{{--                                    @method('DELETE')--}}
+{{--                                    <button type="submit" class="btn btn-outline-warning" onclick="return confirmDelete()"><i class="fa fa-trash"></i></button>--}}
+{{--                                </form>--}}
                             </td>
                         </tr>
                         @php
