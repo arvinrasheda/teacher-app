@@ -70,9 +70,12 @@ class GuruController extends Controller
 
             $model = Guru::find($input['id']);
 
-            $nilaiGuru = NilaiGuru::where('nip_guru', $model->nip)->first();
-            $nilaiGuru->nip_guru = $input['nip'];
-            $nilaiGuru->save();
+            $itemsNilaiGuru = NilaiGuru::where('nip_guru', $model->nip)->get();
+            foreach ($itemsNilaiGuru as $item) {
+                $nilaiGuru = NilaiGuru::find($item->id);
+                $nilaiGuru->nip_guru = $input['nip'];
+                $nilaiGuru->save();
+            }
             $model->nip = $input['nip'];
             $model->nama = $input['nama'];
             $model->keterangan = $input['keterangan'];
