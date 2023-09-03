@@ -67,6 +67,9 @@ class GuruController extends Controller
         $input = $request->except('_token');
 
         $model = Guru::find($input['id']);
+
+        $nilaiGuru = NilaiGuru::where('nip_guru', $model->nip)->get();
+        $nilaiGuru->nip_guru = $input['nip'];
         $model->nip = $input['nip'];
         $model->nama = $input['nama'];
         $model->keterangan = $input['keterangan'];
