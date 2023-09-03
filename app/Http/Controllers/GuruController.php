@@ -20,12 +20,36 @@ class GuruController extends Controller
         return view('guru.create');
     }
 
+    /**
+     * @throws \Exception
+     */
+    public static function validationNip($nip) {
+        $existNip = Guru::where('nip', $nip)->get()->toArray();
+
+        if (count($existNip) > 0) {
+            throw new \Exception('NIP yang sama tidak bisa di proses');
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public static function validationName($name) {
+        $existName = Guru::where('nama', $name)->get()->toArray();
+        if (count($existName) > 0) {
+            throw new \Exception('Nama yang sama tidak bisa di proses');
+        }
+    }
+
     public function store(Request $request)
     {
         $input = $request->except('_token');
 
         try {
             DB::beginTransaction();
+
+            self::validationNip($input['nip']);
+            self::validationName($input['nama']);
 
             $model = new Guru();
             $model->nip = $input['nip'];
@@ -51,7 +75,7 @@ class GuruController extends Controller
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
-            return redirect()->withInput()->with("errormessage", $exception->getMessage());
+            return redirect()->back()->with("errormessage", $exception->getMessage());
         }
 
         return redirect()->route('guru.index')->with('successmessage', 'Data berhasil disimpan!');
@@ -69,6 +93,12 @@ class GuruController extends Controller
             $input = $request->except('_token');
 
             $model = Guru::find($input['id']);
+            if ($input['nip'] != $model->nip) {
+                self::validationNip($input['nip']);
+            }
+            if ($input['nama'] != $model->nama) {
+                self::validationName($input['nama']);
+            }
 
             $itemsNilaiGuru = NilaiGuru::where('nip_guru', $model->nip)->get();
             foreach ($itemsNilaiGuru as $item) {
@@ -86,7 +116,7 @@ class GuruController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             // Handle any errors that occur during deletion
-            return redirect()->route('guru.index')->with('errormessage', $e->getMessage());
+            return redirect()->back()->with('errormessage', $e->getMessage());
         }
     }
 
