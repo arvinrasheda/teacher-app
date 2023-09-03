@@ -33,6 +33,10 @@
                         <label>Password baru</label>
                         <input type="password" class="form-control" name="new_password">
                     </div>
+                    <div class="form-group">
+                        <label>Konfirmasi Password baru</label>
+                        <input type="password" class="form-control" name="new_password_confirmation">
+                    </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

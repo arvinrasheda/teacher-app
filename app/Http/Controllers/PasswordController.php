@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PasswordController extends Controller
 {
@@ -16,6 +17,10 @@ class PasswordController extends Controller
     public function change(Request $request)
     {
         $input = $request->except('_token');
+
+        if ($input['new_password'] != $input['new_password_confirmation']) {
+            return redirect()->route('password.index')->with('errormessage', 'password baru dan konfirmasi password baru tidak sama');
+        }
 
         $model = User::find($input['id']);
         if ($model->pass == $input['old_password']) {
