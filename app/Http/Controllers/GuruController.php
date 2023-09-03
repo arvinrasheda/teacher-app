@@ -64,18 +64,27 @@ class GuruController extends Controller
 
     public function update(Request $request)
     {
-        $input = $request->except('_token');
+        try {
+            DB::beginTransaction();
+            $input = $request->except('_token');
 
-        $model = Guru::find($input['id']);
+            $model = Guru::find($input['id']);
 
-        $nilaiGuru = NilaiGuru::where('nip_guru', $model->nip)->get();
-        $nilaiGuru->nip_guru = $input['nip'];
-        $model->nip = $input['nip'];
-        $model->nama = $input['nama'];
-        $model->keterangan = $input['keterangan'];
-        $model->save();
+            $nilaiGuru = NilaiGuru::where('nip_guru', $model->nip)->get();
+            $nilaiGuru->nip_guru = $input['nip'];
+            $nilaiGuru->save();
+            $model->nip = $input['nip'];
+            $model->nama = $input['nama'];
+            $model->keterangan = $input['keterangan'];
+            $model->save();
+            DB::commit();
 
-        return redirect()->route('guru.index')->with('successmessage', 'Data berhasil disimpan!');
+            return redirect()->route('guru.index')->with('successmessage', 'Data berhasil disimpan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // Handle any errors that occur during deletion
+            return redirect()->route('guru.index')->with('errormessage', $e->getMessage());
+        }
     }
 
     public function destroy($id)
