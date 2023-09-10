@@ -7,6 +7,7 @@ use App\Kriteria;
 use App\NilaiGuru;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class GuruController extends Controller
 {
@@ -46,10 +47,18 @@ class GuruController extends Controller
         $input = $request->except('_token');
 
         try {
-            DB::beginTransaction();
+            $validator = Validator::make($request->all(), [
+                'nip' => 'required|numeric|unique:guru,nip',
+                'nama' => 'required|string|max:255|unique:guru,nama',
+                'keterangan' => 'required|string',
+            ]);
 
-            self::validationNip($input['nip']);
-            self::validationName($input['nama']);
+            if ($validator->fails()) {
+                $errorMessages = implode(' ', $validator->errors()->all());
+                return redirect()->back()->with("errormessage", $errorMessages);
+            }
+
+            DB::beginTransaction();
 
             $model = new Guru();
             $model->nip = $input['nip'];
@@ -91,6 +100,17 @@ class GuruController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->except('_token');
+            $validator = Validator::make($request->all(), [
+                'nip' => 'required|numeric',
+                'nama' => 'required|string',
+                'keterangan' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                $errorMessages = implode(' ', $validator->errors()->all());
+                return redirect()->back()->with("errormessage", $errorMessages);
+            }
+
 
             $model = Guru::find($input['id']);
             if ($input['nip'] != $model->nip) {
