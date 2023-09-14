@@ -32,8 +32,8 @@ class KriteriaController extends Controller
 
             $sumTotal = $getTotal->total_nilai + $input['bobot'];
 
-            if ($sumTotal > 100) {
-                throw new \Exception('Total Bobot Tidak Boleh Lebih Dari 100');
+            if ($sumTotal != 100 ) {
+                throw new \Exception('Total Bobot Tidak Boleh Lebih / Kurang Dari 100');
             }
 
             $model = new Kriteria();
