@@ -56,6 +56,7 @@ Route::middleware(['check.session.auth'])->prefix("nilai-guru")->group(function 
 
 Route::middleware(['check.session.auth'])->prefix("hasil")->group(function () {
     Route::get('', 'HasilController@index')->name('hasil.index');
+    Route::get('/generate-pdf', 'HasilController@generatePdf')->name('hasil.generate');
 });
 Route::middleware(['check.session.auth'])->prefix("password")->group(function () {
     Route::get('', 'PasswordController@index')->name('password.index');

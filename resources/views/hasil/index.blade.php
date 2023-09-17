@@ -27,10 +27,9 @@
                     </select>
                 </h3>
 
-
-{{--                <div class="box-tools pull-right">--}}
-{{--                    <a href="{{ route('hasil.generate') }}">Generate PDF</a>--}}
-{{--                </div>--}}
+                <div class="box-tools pull-right">
+                    <a class="btn btn-success" href="{{ route('hasil.generate') }}">Generate PDF</a>
+                </div>
             </div>
 
             <div class="box-body">
