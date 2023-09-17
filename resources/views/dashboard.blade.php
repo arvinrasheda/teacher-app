@@ -56,7 +56,7 @@
                             @endphp
                             @foreach($listKriteria as $kriteria)
                                 @php
-                                    $subtotal = number_format(GuruServices::getPerangkingan($item->nip_guru, $kriteria->kode_kriteria, number_format(GuruServices::getNormalisasi($item->nip_guru, $kriteria->kode_kriteria), 2)), 2);
+                                    $subtotal = number_format(GuruServices::getPerangkingan($item->nip_guru, $kriteria->kode_kriteria, number_format(GuruServices::getNormalisasi($item->nip_guru, $kriteria->kode_kriteria, date('Y')), 2)), 2);
                                     $total += $subtotal;
                                 @endphp
                             @endforeach

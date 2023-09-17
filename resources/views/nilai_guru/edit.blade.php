@@ -25,6 +25,14 @@
             <form action="{{route('nilai_guru.store', ['nip'=>$nip])}}" method="post">
                 @csrf
                 <div class="box-body">
+                    <div class="form-group">
+                        <label>Tahun Ajaran</label>
+                        <select class="form-control" name="tahun_ajaran" readonly>
+                            @foreach($tahunAjaranList as $key => $value)
+                                <option value="{{ $key }}" {{ $key == $tahunAjaran ? 'selected' : '' }}> {{$value}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     @foreach($listKriteria as $kriteria)
                         <div class="form-group">
                             <label>{{ $kriteria['nama_kriteria']  }}</label>

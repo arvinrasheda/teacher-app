@@ -20,7 +20,18 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Penilaian Guru</h3>
+                <h3 class="box-title">Penilaian Guru
+                    <select onchange="onChangeTahunAjaran(this)" name="tahun_ajaran" style="margin-left: 5px">
+                        @foreach($tahunAjaranList as $key => $value)
+                            <option value="{{ $key }}" {{ $key == $tahunAjaran ? 'selected' : '' }}> {{$value}}</option>
+                        @endforeach
+                    </select>
+                </h3>
+
+                <div class="box-tools pull-right">
+                    <a id="btnTambah" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah</a>
+                </div>
+
             </div>
 
             <div class="box-body">
@@ -30,6 +41,7 @@
                         <th>No</th>
                         <th>NIP</th>
                         <th>Nama Guru</th>
+                        <th>Tahun Ajaran</th>
                         @foreach($listKriteria as $item)
                             <th>{{$item->nama_kriteria}}</th>
                         @endforeach
@@ -45,11 +57,12 @@
                             <td>{{ $no }}</td>
                             <td>{{ $item->nip_guru }}</td>
                             <td>{{ $item->nama_guru }}</td>
+                            <td>{{ $item->tahun_ajaran - 1 }}/{{ $item->tahun_ajaran}}</td>
                             @foreach($listKriteria as $kriteria)
-                                <td>{{ GuruServices::getItemKeterangan($item->nip_guru, $kriteria->kode_kriteria) }}</td>
+                                <td>{{ GuruServices::getItemKeterangan($item->nip_guru, $kriteria->kode_kriteria, $item->tahun_ajaran) }}</td>
                             @endforeach
                             <td>
-                                <a href="{{ route('nilai_guru.edit', ['nip' => $item->nip_guru]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
+                                <a href="{{ route('nilai_guru.edit', ['nip' => $item->nip_guru]) }}?tahun_ajaran={{$item->tahun_ajaran}}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>
                             </td>
                         </tr>
                         @php
@@ -61,6 +74,44 @@
 
             </div>
 
+        </div>
+
+        <div class="modal fade" id="modalTambah">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Tambah Penilaian Guru</h4>
+                    </div>
+                    <form action="{{ route('nilai_guru.addFromTahunAjaran') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tahun Ajaran</label>
+                                <select class="form-control" name="tahun_ajaran">
+                                    @foreach($tahunAjaranList as $key => $value)
+                                        <option value="{{ $key }}" {{ $key == $tahunAjaran ? 'selected' : '' }}> {{$value}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Guru</label>
+                                <select class="form-control" name="nip">
+                                    @foreach($guruList as $key => $value)
+                                        <option value="{{ $value->nip }}"> {{$value->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </section>
@@ -76,7 +127,14 @@
                 buttons: [
                     'print'
                 ]
-            })
+            });
+            $("#btnTambah").click(function () {
+                $("#modalTambah").modal('show');
+            });
         })
+        function onChangeTahunAjaran(select) {
+            var selectedValue = select.value;
+            window.location.href = window.location.pathname + "?tahun_ajaran=" + selectedValue;
+        }
     </script>
 @endsection

@@ -13,9 +13,12 @@ class GuruServices
      * @param $kode_kriteria
      * @return string
      */
-    public static function getItemKeterangan($nip, $kode_kriteria): string
+    public static function getItemKeterangan($nip, $kode_kriteria, $tahun_ajaran): string
     {
-        $nilaiGuru = NilaiGuru::where('nip_guru', $nip)->where('kode_kriteria', $kode_kriteria)->first();
+        $nilaiGuru = NilaiGuru::where('nip_guru', $nip)
+            ->where('kode_kriteria', $kode_kriteria)
+            ->where('tahun_ajaran', $tahun_ajaran)
+            ->first();
         if ($nilaiGuru) {
             if ($nilaiGuru->id_nilai_kriteria) {
                 $nilaiKriteria = NilaiKriteria::find($nilaiGuru->id_nilai_kriteria);
@@ -31,9 +34,12 @@ class GuruServices
      * @param $kode_kriteria
      * @return int
      */
-    public static function getItemNilai($nip, $kode_kriteria): int
+    public static function getItemNilai($nip, $kode_kriteria, $tahun_ajaran): int
     {
-        $nilaiGuru = NilaiGuru::where('nip_guru', $nip)->where('kode_kriteria', $kode_kriteria)->first();
+        $nilaiGuru = NilaiGuru::where('nip_guru', $nip)
+            ->where('kode_kriteria', $kode_kriteria)
+            ->where('tahun_ajaran', $tahun_ajaran)
+            ->first();
         if ($nilaiGuru) {
             if ($nilaiGuru->id_nilai_kriteria) {
                 $nilaiKriteria = NilaiKriteria::find($nilaiGuru->id_nilai_kriteria);
@@ -49,11 +55,15 @@ class GuruServices
      * @param $kode_kriteria
      * @return float|int
      */
-    public static function getNormalisasi($nip, $kode_kriteria)
+    public static function getNormalisasi($nip, $kode_kriteria, $tahun_ajaran)
     {
-        $nilaiGuru = NilaiGuru::where('nip_guru', $nip)->where('kode_kriteria', $kode_kriteria)->first();
+        $nilaiGuru = NilaiGuru::where('nip_guru', $nip)
+            ->where('kode_kriteria', $kode_kriteria)
+            ->where('tahun_ajaran', $tahun_ajaran)
+            ->first();
         $allNilai = NilaiGuru::where('kode_kriteria', $kode_kriteria)
             ->whereNotNull('id_nilai_kriteria')
+            ->where('tahun_ajaran', $tahun_ajaran)
             ->get()
             ->toArray();
 

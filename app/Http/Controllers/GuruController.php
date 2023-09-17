@@ -74,21 +74,6 @@ class GuruController extends Controller
             $model->pendidikan = $input['pendidikan'];
             $model->save();
 
-            $listKriteria = Kriteria::all();
-
-            $save = [];
-
-            foreach ($listKriteria as $kriteria) {
-                $save[] = [
-                    'nip_guru' => $input['nip'],
-                    'kode_kriteria' => $kriteria->kode_kriteria,
-                    'id_nilai_kriteria' => null,
-                    'created_at' => now()
-                ];
-            }
-
-            NilaiGuru::insert($save);
-
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();

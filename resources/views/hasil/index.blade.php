@@ -19,7 +19,18 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Perangkingan Dengan Metode SAW</h3>
+                <h3 class="box-title">Perangkingan Dengan Metode SAW
+                    <select onchange="onChangeTahunAjaran(this)" name="tahun_ajaran" style="margin-left: 5px">
+                        @foreach($tahunAjaranList as $key => $value)
+                            <option value="{{ $key }}" {{ $key == $tahunAjaran ? 'selected' : '' }}> {{$value}}</option>
+                        @endforeach
+                    </select>
+                </h3>
+
+
+{{--                <div class="box-tools pull-right">--}}
+{{--                    <a href="{{ route('hasil.generate') }}">Generate PDF</a>--}}
+{{--                </div>--}}
             </div>
 
             <div class="box-body">
@@ -47,7 +58,7 @@
                                 <tr>
                                     <td>{{ $item->nama_guru }}</td>
                                     @foreach($listKriteria as $kriteria)
-                                        <td>{{ GuruServices::getItemKeterangan($item->nip_guru, $kriteria->kode_kriteria) }}</td>
+                                        <td>{{ GuruServices::getItemKeterangan($item->nip_guru, $kriteria->kode_kriteria, $item->tahun_ajaran) }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -68,7 +79,7 @@
                                 <tr>
                                     <td>{{ $item->nip_guru }}</td>
                                     @foreach($listKriteria as $kriteria)
-                                        <td>{{ GuruServices::getItemNilai($item->nip_guru, $kriteria->kode_kriteria) }}</td>
+                                        <td>{{ GuruServices::getItemNilai($item->nip_guru, $kriteria->kode_kriteria, $item->tahun_ajaran) }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -100,7 +111,7 @@
                                 <tr>
                                     <td>{{ $item->nama_guru }}</td>
                                     @foreach($listKriteria as $kriteria)
-                                        <td>{{ number_format(GuruServices::getNormalisasi($item->nip_guru, $kriteria->kode_kriteria), 2) }}</td>
+                                        <td>{{ number_format(GuruServices::getNormalisasi($item->nip_guru, $kriteria->kode_kriteria, $item->tahun_ajaran), 2) }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -147,7 +158,7 @@
                                     @endphp
                                     @foreach($listKriteria as $kriteria)
                                         @php
-                                            $subtotal = number_format(GuruServices::getPerangkingan($item->nip_guru, $kriteria->kode_kriteria, number_format(GuruServices::getNormalisasi($item->nip_guru, $kriteria->kode_kriteria), 2)), 2);
+                                            $subtotal = number_format(GuruServices::getPerangkingan($item->nip_guru, $kriteria->kode_kriteria, number_format(GuruServices::getNormalisasi($item->nip_guru, $kriteria->kode_kriteria, $item->tahun_ajaran), 2)), 2);
                                             $total += $subtotal;
                                         @endphp
                                         <td>{{ $subtotal }}</td>
@@ -202,6 +213,10 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        <br>
+                        <br>
+                        Diproses : <b>{{ now()->format('d F Y H:i:s') }}</b>
                     </div>
                 </div>
             </div>
@@ -210,6 +225,12 @@
 
     </section>
 @endsection
-
 @section('js')
+    <script>
+        function onChangeTahunAjaran(select) {
+            var selectedValue = select.value;
+            window.location.href = window.location.pathname + "?tahun_ajaran=" + selectedValue;
+        }
+    </script>
 @endsection
+

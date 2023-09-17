@@ -51,6 +51,7 @@ Route::middleware(['check.session.auth'])->prefix("nilai-guru")->group(function 
     Route::get('', 'NilaiGuruController@index')->name('nilai_guru.index');
     Route::get('/edit/{nip}', 'NilaiGuruController@edit')->name('nilai_guru.edit');
     Route::post('/store/{nip}', 'NilaiGuruController@store')->name('nilai_guru.store');
+    Route::post('/add', 'NilaiGuruController@addFromTahunAjaran')->name('nilai_guru.addFromTahunAjaran');
 });
 
 Route::middleware(['check.session.auth'])->prefix("hasil")->group(function () {
