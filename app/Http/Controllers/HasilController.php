@@ -39,19 +39,18 @@ class HasilController extends Controller
     }
     public function generatePdf(Request $request)
     {
+        $tahunAjaran = $request->get('tahun_ajaran') ?: date('Y');
         // Buat instance PDF menggunakan TCPDF
         $pdf = new \TCPDF();
 
         // Set dokumen PDF
         $pdf->SetTitle('Hasil Perangkingan');
-        $pdf->SetHeaderData('', 0, 'Hasil Perangkingan', '');
+        $pdf->SetHeaderData('', 0, 'Hasil Perangkingan Tahun Ajaran ' . ($tahunAjaran - 1) . '/' . $tahunAjaran , '');
         // Tambahkan halaman baru
         $pdf->AddPage();
 
         // Konten halaman PDF
         $listKriteria = Kriteria::select('*')->orderBy('kode_kriteria')->get();
-
-        $tahunAjaran = $request->get('tahun_ajaran') ?: date('Y');
         $tahunAjaranList = [
             '2022' => 'Tahun Ajaran 2021/2022',
             '2023' => 'Tahun Ajaran 2022/2023',

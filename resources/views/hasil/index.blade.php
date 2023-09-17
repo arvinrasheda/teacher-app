@@ -28,7 +28,7 @@
                 </h3>
 
                 <div class="box-tools pull-right">
-                    <a class="btn btn-success" href="{{ route('hasil.generate') }}">Generate PDF</a>
+                    <a class="btn btn-success" href="{{ route('hasil.generate', ['tahun_ajaran' => $tahunAjaran]) }}">Generate PDF</a>
                 </div>
             </div>
 
