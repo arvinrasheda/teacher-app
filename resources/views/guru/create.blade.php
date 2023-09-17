@@ -25,17 +25,46 @@
             <form action="{{route('guru.store')}}" method="post">
                 @csrf
                 <div class="box-body">
-
-                    <div class="form-group">
-                        <label>NIP</label>
-                        <input type="text" class="form-control" placeholder="Enter ..." name="nip">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>NIP</label>
+                                <input type="text" class="form-control" placeholder="Isi NIP Guru" name="nip">
+                            </div>
+                            <div class="form-group">
+                                <label>Nama</label>
+                                <input type="text" class="form-control" placeholder="Isi Nama Guru" name="nama">
+                            </div>
+                            <div class="form-group">
+                                <label>Masa Bakti</label>
+                                <input type="number" class="form-control" placeholder="Isi Masa Bakti Guru" name="masa_bakti">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" name="jenis_kelamin">
+                                    <option value="L">Laki - Laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Posisi</label>
+                                <select class="form-control" name="posisi">
+                                    <option value="SUBJECT">Subject</option>
+                                    <option value="WALI_KELAS">Wali Kelas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pendidikan</label>
+                                <select class="form-control" name="pendidikan">
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" class="form-control" placeholder="Enter ..." name="nama">
-                    </div>
-
                     <div class="form-group">
                         <label>Keterangan</label>
                         <input type="text" class="form-control" placeholder="Enter ..." name="keterangan">

@@ -33,6 +33,9 @@
                         <th>No</th>
                         <th>NIP Guru</th>
                         <th>Nama Guru</th>
+                        <th>Pendidikan</th>
+                        <th>Masa Bakti</th>
+                        <th>Jenis Kelamin</th>
                         <th>Keterangan</th>
                         <th>Aksi</th>
                     </tr>
@@ -46,6 +49,9 @@
                             <td>{{ $no }}</td>
                             <td>{{ $item->nip }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->pendidikan }}</td>
+                            <td>{{ $item->masa_bakti }} Tahun</td>
+                            <td>{{ $item->jenis_kelamin == 'L' ? "Laki - Laki" : "Perempuan" }}</td>
                             <td>{{ $item->keterangan }}</td>
                             <td>
                                 <a href="{{ route('guru.edit', ['id' => $item->id]) }}" class="btn btn-outline-warning"><i class="fa fa-pencil"></i></a>

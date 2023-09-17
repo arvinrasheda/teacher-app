@@ -51,6 +51,10 @@ class GuruController extends Controller
                 'nip' => 'required|numeric|unique:guru,nip',
                 'nama' => 'required|string|max:255|unique:guru,nama',
                 'keterangan' => 'required|string',
+                'posisi' => 'required|string',
+                'masa_bakti' => 'required|numeric',
+                'jenis_kelamin' => 'required|string',
+                'pendidikan' => 'required|string',
             ]);
 
             if ($validator->fails()) {
@@ -64,6 +68,10 @@ class GuruController extends Controller
             $model->nip = $input['nip'];
             $model->nama = $input['nama'];
             $model->keterangan = $input['keterangan'];
+            $model->jenis_kelamin = $input['jenis_kelamin'];
+            $model->posisi = $input['posisi'];
+            $model->masa_bakti = $input['masa_bakti'];
+            $model->pendidikan = $input['pendidikan'];
             $model->save();
 
             $listKriteria = Kriteria::all();
@@ -104,6 +112,10 @@ class GuruController extends Controller
                 'nip' => 'required|numeric',
                 'nama' => 'required|string',
                 'keterangan' => 'required|string',
+                'posisi' => 'required|string',
+                'masa_bakti' => 'required|numeric',
+                'jenis_kelamin' => 'required|string',
+                'pendidikan' => 'required|string',
             ]);
 
             if ($validator->fails()) {
@@ -129,6 +141,10 @@ class GuruController extends Controller
             $model->nip = $input['nip'];
             $model->nama = $input['nama'];
             $model->keterangan = $input['keterangan'];
+            $model->jenis_kelamin = $input['jenis_kelamin'];
+            $model->posisi = $input['posisi'];
+            $model->masa_bakti = $input['masa_bakti'];
+            $model->pendidikan = $input['pendidikan'];
             $model->save();
             DB::commit();
 
