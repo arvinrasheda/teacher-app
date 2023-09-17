@@ -13,16 +13,18 @@ class HasilController extends Controller
         $listKriteria = Kriteria::select('*')->orderBy('kode_kriteria')->get();
         $list = DB::select('
             SELECT
-                guru.id,
+                guru.ID,
                 nilai_guru.nip_guru,
                 guru.nama AS nama_guru
             FROM
-                "guru"
-                LEFT JOIN nilai_guru ON guru.nip = nilai_guru.nip_guru
+                nilai_guru
+                LEFT JOIN guru ON guru.nip = nilai_guru.nip_guru
+            WHERE
+                nilai_guru.id_nilai_kriteria IS NOT NULL
             GROUP BY
                 guru.nama,
                 nilai_guru.nip_guru,
-                guru.id
+                guru.ID
         ');
 
         return view('hasil.index', compact('listKriteria', 'list'));

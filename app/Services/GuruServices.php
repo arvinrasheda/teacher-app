@@ -52,7 +52,11 @@ class GuruServices
     public static function getNormalisasi($nip, $kode_kriteria)
     {
         $nilaiGuru = NilaiGuru::where('nip_guru', $nip)->where('kode_kriteria', $kode_kriteria)->first();
-        $allNilai = NilaiGuru::where('kode_kriteria', $kode_kriteria)->get()->toArray();
+        $allNilai = NilaiGuru::where('kode_kriteria', $kode_kriteria)
+            ->whereNotNull('id_nilai_kriteria')
+            ->get()
+            ->toArray();
+
         $nilai = [];
         if($nilaiGuru && count($allNilai) > 0) {
             $nilaiRowNip = NilaiKriteria::find($nilaiGuru->id_nilai_kriteria);
