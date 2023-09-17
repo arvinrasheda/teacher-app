@@ -36,7 +36,7 @@
                                 <input type="text" class="form-control" placeholder="Isi Nama Guru" name="nama">
                             </div>
                             <div class="form-group">
-                                <label>Masa Bakti</label>
+                                <label>Masa Bakti (dalam Tahun)</label>
                                 <input type="number" class="form-control" placeholder="Isi Masa Bakti Guru" name="masa_bakti">
                             </div>
                         </div>
