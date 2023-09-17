@@ -89,7 +89,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Tahun Ajaran</label>
-                                <select class="form-control" name="tahun_ajaran">
+                                <select class="form-control" name="tahun_ajaran" required>
                                     @foreach($tahunAjaranList as $key => $value)
                                         <option value="{{ $key }}" {{ $key == $tahunAjaran ? 'selected' : '' }}> {{$value}}</option>
                                     @endforeach
@@ -98,7 +98,7 @@
 
                             <div class="form-group">
                                 <label>Guru</label>
-                                <select class="form-control" name="nip">
+                                <select class="form-control" name="nip" required>
                                     @foreach($guruList as $key => $value)
                                         <option value="{{ $value->nip }}"> {{$value->nama}}</option>
                                     @endforeach
@@ -106,8 +106,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
